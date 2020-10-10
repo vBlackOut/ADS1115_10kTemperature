@@ -3,4 +3,5 @@ adafruit-circuitpython-ads1x15==2.2.3
 adafruit-circuitpython-busdevice==5.0.1
 Adafruit-PlatformDetect==2.15.0
 Adafruit-PureIO==1.1.5
+RPi.GPIO==0.7.0
 requests
