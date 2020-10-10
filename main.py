@@ -14,11 +14,30 @@ i2c = busio.I2C(board.SCL, board.SDA)
 # Create the ADC object using the I2C bus
 ads = ADS.ADS1115(i2c)
 
+def convert(value):
+    if value:
+        # determine multiplier
+        multiplier = 1
+        if value.endswith('K') or value.endswith('k'):
+            multiplier = 1000
+            value = value[0:len(value)-1] # strip multiplier character
+        elif value.endswith('M') or value.endswith('m'):
+            multiplier = 1000000
+            value = value[0:len(value)-1] # strip multiplier character
+
+        # convert value to float, multiply, then convert the result to int
+        return int(float(value) * multiplier)
+
+    else:
+        return 0
+
+ResistanceValue = convert("10k")
+
 def calcResistance(voltage):
-    return ((10000 * voltage) / (3.3 - voltage))
+    return ((ResistanceValue * voltage) / (3.3 - voltage))
 
 def calcTemp(resistance):
-    return 1 / ( (math.log(resistance / 10000) / 3435) + (1 / (273.15+25)) ) - 273.15;
+    return 1 / ( (math.log(resistance / ResistanceValue) / 3435) + (1 / (273.15+25)) ) - 273.15;
 
 def GetSonde1():
     chan0 = AnalogIn(ads, ADS.P0)
