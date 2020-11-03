@@ -8,7 +8,7 @@ from adafruit_ads1x15.analog_in import AnalogIn
 from terminaltables import SingleTable
 import requests
 import logging
-from lib import SCR
+from lib.SCR import *
 from lib.display import *
 from datetime import datetime
 from lib.daemon import *
