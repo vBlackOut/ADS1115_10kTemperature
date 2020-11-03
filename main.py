@@ -8,7 +8,7 @@ from adafruit_ads1x15.analog_in import AnalogIn
 from terminaltables import SingleTable
 import requests
 import logging
-from lib import SCR
+from lib.SCR import *
 from lib.display import *
 from datetime import datetime
 from database import db
@@ -100,7 +100,7 @@ def GetSonde2():
 
 
 def AjustPercent(temperature, temperatureMax, maxstep, temp=""):
-    scr = SCR.SCR(data_mode = 0) #0:I2C  1: UART
+    scr = SCR(data_mode = 0) #0:I2C  1: UART
     step = round(temperatureMax - temperature, 2)
 
     AjustTemp = 0
@@ -131,7 +131,7 @@ def AjustPercent(temperature, temperatureMax, maxstep, temp=""):
     return round(AjustTemp, 1)
 
 def channelVoltage(channel, percent, disable=False):
-    scr = SCR.SCR(data_mode = 0) #0:I2C  1: UART
+    scr = SCR(data_mode = 0) #0:I2C  1: UART
     scr.SetMode(1)
     #scr.GridFrequency(50)
 
