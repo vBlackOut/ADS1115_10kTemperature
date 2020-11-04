@@ -1,0 +1,12 @@
+[Unit]
+Description = service afficheur lcd
+After = multi-user.target
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/Python/ADS/lcd_start.py start
+ExecStop=/usr/bin/python3 /home/pi/Python/ADS/lcd_start.py stop
+ExecReload=/usr/bin/python3 /home/pi/Python/ADS/lcd_start.py restart
+WorkingDirectory=/home/pi/Python/ADS/
+PIDFile=/tmp/daemon-python.pid
+User=pi
+[Install]
+WantedBy = multi-user.target
