@@ -12,6 +12,7 @@ from lib.SCR import *
 from lib.display import *
 from datetime import datetime
 from database import db
+from numpy import mean as avg
 
 # scr = SCR.SCR(dev = "/dev/ttySC0",data_mode = 1)
 debug = False
@@ -42,29 +43,26 @@ def convert(value):
 
 ResistanceValue = convert("10k")
 
-
-def write_lcd(**kwargs):
-    # lcd start
-    lcd_device = lcd()
-    # this command clears the display (captain obvious)
-    lcd_device.lcd_clear()
-    lineTemperature = ""
-    medium = (kwargs['temp2'] + kwargs['temp1']) / 2
-    date = datetime.now().strftime('%d, %b %Y %H:%M')
-    for key, value in kwargs.items():
-
-        if key == "temp1":
-            lineTemperature += "{}C".format(round(value,1))
-
-        if key == "temp2":
-            lineTemperature += "  <----   {}C".format(round(value,1))
-
-    # now we can display some characters (text, line)
-    lcd_device.lcd_display_string(" {}".format(date), 1)
-    lcd_device.lcd_display_string(lineTemperature, 3)
-    lcd_device.lcd_display_string("       {}C".format(round(medium,1)), 4)
-
-
+# def write_lcd(**kwargs):
+#     # lcd start
+#     lcd_device = lcd()
+#     # this command clears the display (captain obvious)
+#     #lcd_device.lcd_clear()
+#     lineTemperature = ""
+#     medium = (kwargs['temp2'] + kwargs['temp1']) / 2
+#     date = datetime.now().strftime('%d, %b %Y %H:%M')
+#     for key, value in kwargs.items():
+#
+#         if key == "temp1":
+#             lineTemperature += "{}C".format(round(value,1))
+#
+#         if key == "temp2":
+#             lineTemperature += "  <----   {}C".format(round(value,1))
+#
+#     # now we can display some characters (text, line)
+#     lcd_device.lcd_display_string(" {}".format(date), 1)
+#     lcd_device.lcd_display_string(lineTemperature, 3)
+#     lcd_device.lcd_display_string("       {}C".format(round(medium,1)), 4)
 
 def calcResistance(voltage):
     return ((ResistanceValue * voltage) / (3.3 - voltage))
@@ -73,31 +71,42 @@ def calcTemp(resistance):
     return 1 / ( (math.log(resistance / ResistanceValue) / 3435) + (1 / (273.15+25)) ) - 273.15;
 
 def GetSonde1():
-    etalonne = 1.5
-    chan0 = AnalogIn(ads, ADS.P0)
-    R0 = calcResistance(chan0.voltage)
-    Temp0 = round(calcTemp(R0), 1) + etalonne
+    #db.Ballon2()
+    #db.Ballon1.select().order_by(db.Ballon1.id.desc()).get()
+    query = db.Ballon2.select().order_by(db.Ballon2.id.desc()).where(db.Ballon2.Sonde_haut != None or db.Ballon2.Sonde_bas != None).limit(2)
+    Sonde_haut = [row.Sonde_haut for row in query]
+    Sonde_bas = [row.Sonde_bas for row in query]
+    AvgTemp = (avg(Sonde_haut) + avg(Sonde_bas)) / 2
 
-    chan1 = AnalogIn(ads, ADS.P1)
-    R1 = calcResistance(chan1.voltage)
-    Temp1 = round(calcTemp(R1), 1) + etalonne
-    AvgTemp = (Temp0 + Temp1) / 2
+    # etalonne = 1.5
+    # chan0 = AnalogIn(ads, ADS.P0)
+    # R0 = calcResistance(chan0.voltage)
+    # Temp0 = round(calcTemp(R0), 1) + etalonne
+    #
+    # chan1 = AnalogIn(ads, ADS.P1)
+    # R1 = calcResistance(chan1.voltage)
+    # Temp1 = round(calcTemp(R1), 1) + etalonne
+    # AvgTemp = (Temp0 + Temp1) / 2
 
-    return {"haut": {"temp": Temp0, "resistance": round(R0)}, "bas": {"temp": Temp1, "resistance": round(R1)}, "moyenne": AvgTemp}
+    return {"haut": {"temp": avg(Sonde_haut)}, "bas": {"temp": avg(Sonde_bas)}, "moyenne": AvgTemp}
 
 def GetSonde2():
-    etalonne = 1.5
-    chan2 = AnalogIn(ads, ADS.P3)
-    R2 = calcResistance(chan2.voltage)
-    Temp2 = round(calcTemp(R2), 1) + etalonne
+    query = db.Ballon1.select().order_by(db.Ballon1.id.desc()).where(db.Ballon1.Sonde_haut != None or db.Ballon1.Sonde_bas != None).limit(2)
+    Sonde_haut = [row.Sonde_haut for row in query]
+    Sonde_bas = [row.Sonde_bas for row in query]
+    AvgTemp = (avg(Sonde_haut) + avg(Sonde_bas)) / 2
 
-    chan3 = AnalogIn(ads, ADS.P2)
-    R3 = calcResistance(chan3.voltage)
-    Temp3 = round(calcTemp(R3), 1) + etalonne
-    AvgTemp = (Temp2 + Temp3) / 2
+    # etalonne = 1.5
+    # chan2 = AnalogIn(ads, ADS.P3)
+    # R2 = calcResistance(chan2.voltage)
+    # Temp2 = round(calcTemp(R2), 1) + etalonne
+    #
+    # chan3 = AnalogIn(ads, ADS.P2)
+    # R3 = calcResistance(chan3.voltage)
+    # Temp3 = round(calcTemp(R3), 1) + etalonne
+    # AvgTemp = (Temp2 + Temp3) / 2
 
-    return {"bas": {"temp": Temp2, "resistance": round(R2)}, "haut": {"temp": Temp3, "resistance": round(R3)}, "moyenne": AvgTemp}
-
+    return {"bas": {"temp": avg(Sonde_haut)}, "haut": {"temp": avg(Sonde_bas)}, "moyenne": AvgTemp}
 
 def AjustPercent(temperature, temperatureMax, maxstep, temp=""):
     scr = SCR(data_mode = 0) #0:I2C  1: UART
@@ -156,21 +165,21 @@ def SetResistance(sonde1, sonde2, temperature1, temperature2):
 
     # ENTRER
     if temperature2 < 45:
-        Percent_R2 = AjustPercent(temperature2, 45, 25, "temp1")
-
+        Percent_R2 = AjustPercent(temperature2, 45, 15, "temp1")
+        #Percent_R2 = Percent_R2+50
         if Percent_R2 != 0:
             Resistance2 = True
             if Percent_R2 >= 35:
                 delta = round((1*Percent_R2)*6)
             else:
                 delta = round((1*Percent_R2)*Percent_R2/10)
-            db_save = db.Ballon1.create(Sonde_haut=sonde2['haut']['temp'], Sonde_bas=sonde2['bas']['temp'], moyenne_temperature=temperature2, resistance=Percent_R2, watt=round(Percent_R2/100*Resistance2_P)+delta)
+            db_save = db.Ballon1.create(resistance=Percent_R2, watt=round(Percent_R2/100*Resistance2_P)+delta)
             db_save.save()
             print("Resistance 1 Entrer - Turn On {} - conso: {}+{} ({}) - {}%".format(temperature2, round(Percent_R2/100*Resistance2_P), delta, round(Percent_R2/100*Resistance2_P)+delta, Percent_R2))
             channelVoltage(1, Percent_R2)
 
     # SORTIE
-    if temperature1 < 50:
+    if temperature1 < 50 and Percent_R2 < 27:
 
         # ENTRER MARCHE
         if Resistance2 == True:
@@ -182,14 +191,14 @@ def SetResistance(sonde1, sonde2, temperature1, temperature2):
                 else:
                     delta = 120
                     delta = round((1*Percent_R1)*Percent_R1/10)
-                db_save = db.Ballon2.create(Sonde_haut=sonde1['haut']['temp'], Sonde_bas=sonde1['bas']['temp'], moyenne_temperature=temperature1, resistance=Percent_R1, watt=round(Percent_R1/100*Resistance1_P)+delta)
+                db_save = db.Ballon2.create(resistance=Percent_R1, watt=round(Percent_R1/100*Resistance1_P)+delta)
                 db_save.save()
                 print("Resistance 2 Sortie - Turn On {} - conso: {}+{} ({}) - {}%".format(temperature1, round((Percent_R1*Resistance1_P)/100), delta, round((Percent_R1*Resistance1_P)/100)+delta, Percent_R1))
                 channelVoltage(2, Percent_R1)
 
         # ENTRER STOP
         else:
-            Percent_R1 = AjustPercent(temperature1, 50, 5, "temp2")
+            Percent_R1 = AjustPercent(temperature1, 50, 7, "temp2")
             Resistance1 = True
             if Percent_R1 != 0:
                 if Percent_R1 >= 35:
@@ -240,25 +249,25 @@ else:
     table = SingleTable(table_data, '{}Chauf Eau 2.0---{}'.format("-"*15, dt_string))
     print(table.table)
 
-    r = requests.get("http://192.168.1.14/getmeterdata").json()
-
-    V = r["channels"][0]["V"]/1000
-    I = r["channels"][0]["I"]/1000
-    W = round(V*I)
-
-    print("Watt Total:", W)
+    # r = requests.get("http://192.168.1.14/getmeterdata").json()
+    #
+    # V = r["channels"][0]["V"]/1000
+    # I = r["channels"][0]["I"]/1000
+    # W = round(V*I)
+    #
+    # print("Watt Total:", W)
 
 
     R1, R2 = SetResistance(sonde1, sonde2, round(sonde1['moyenne'], 1), round(sonde2['moyenne'], 1))
 
     if R1 == 0:
         channelVoltage(1, R1, disable=True)
-        db_save = db.Ballon1.create(Sonde_haut=sonde2['haut']['temp'], Sonde_bas=sonde2['bas']['temp'], moyenne_temperature=sonde2['moyenne'], resistance=0, watt=0)
+        db_save = db.Ballon1.create(resistance=0, watt=0)
         db_save.save()
 
     if R2 == 0:
         channelVoltage(2, R2, disable=True)
-        db_save = db.Ballon2.create(Sonde_haut=sonde1['haut']['temp'], Sonde_bas=sonde1['bas']['temp'], moyenne_temperature=sonde1['moyenne'], resistance=0, watt=0)
+        db_save = db.Ballon2.create(resistance=0, watt=0)
         db_save.save()
 
         # total_watt_R1 = round((R1*1500)/100)
@@ -266,6 +275,6 @@ else:
         # watt1 = W-total_watt_R1
         # watt2 = watt1-total_watt_R2
         # print("dispath watt: ", watt2-400)
-    write_lcd(temp1=sonde1['moyenne'], temp2=sonde2['moyenne'])
-
+    #write_lcd(temp1=sonde1['moyenne'], temp2=sonde2['moyenne'])
 exit(0)
+
