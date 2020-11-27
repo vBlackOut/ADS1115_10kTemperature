@@ -1,0 +1,1705 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 2,
+  "id": 1,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 7,
+      "panels": [],
+      "repeat": null,
+      "title": "Row title",
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "Off",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "noValue": "Off",
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "#bf1b00",
+                "value": null
+              },
+              {
+                "color": "rgb(255, 255, 255)",
+                "value": 75
+              },
+              {
+                "color": "#f9d9f9"
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 0,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 3,
+      "interval": "",
+      "links": [],
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.3.1",
+      "repeat": null,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(date) as time_sec,\n  resistance as value,\n  \"r2\" as metric\nFROM Ballon2\nWHERE $__timeFilter(date)\nORDER BY date ASC\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": "1m",
+      "timeShift": null,
+      "title": "Ballon2 - Sortie",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "Off",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "noValue": "Off",
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgb(9, 124, 184)",
+                "value": null
+              },
+              {
+                "color": "rgb(255, 255, 255)",
+                "value": 75
+              },
+              {
+                "color": "#f9d9f9"
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 8,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 4,
+      "interval": "",
+      "links": [],
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(date) as time_sec,\n  resistance as value,\n  \"r1\" as metric\nFROM Ballon1\nWHERE $__timeFilter(date)\nORDER BY date ASC\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": "1m",
+      "timeShift": null,
+      "title": "Ballon1 Entrer",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 1500,
+          "min": 0,
+          "noValue": "0 ",
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 1000
+              },
+              {
+                "color": "#d44a3a"
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 16,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 5,
+      "interval": "1m",
+      "links": [],
+      "maxDataPoints": 1500,
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(b2.date) as time_sec,\n  b2.watt as value,\n  'Total Watt' as metric\nFROM Ballon2 as b2\nWHERE $__timeFilter(b2.date) AND b2.watt > 0  /*OR $__timeFilter(b2.date) OR $__timeFilter(b1.date)*/\nGROUP BY 1\nORDER BY $__timeGroup(b2.date,$__interval,0)\n",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "Ballon2",
+          "timeColumn": "date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(b1.date) as time_sec,\n  b1.watt as value,\n  'Total Watt' as metric\nFROM Ballon2 as b1\nWHERE $__timeFilter(b1.date) AND b1.watt > 0  /*OR $__timeFilter(b2.date) OR $__timeFilter(b1.date)*/\nGROUP BY 1\nORDER BY $__timeGroup(b1.date,$__interval,0)\n\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "Ballon2",
+          "timeColumn": "date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": "30s",
+      "timeShift": null,
+      "title": "Conso Total",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        }
+      ],
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "aliasColors": {
+        "Ballon 1 - Entrer": "#1f78c1",
+        "Ballon 1 - Entrer bas": "dark-blue",
+        "Ballon 1 - Entrer haut": "semi-dark-blue",
+        "Ballon 2 - Sortie": "rgb(255, 0, 27)",
+        "Ballon 2 - Sortie bas": "dark-red",
+        "Ballon 2 - Sortie haut": "dark-red",
+        "Sonde Interne": "semi-dark-yellow"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "decimals": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 3,
+      "fillGradient": 3,
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "height": "",
+      "hiddenSeries": false,
+      "hideTimeOverride": false,
+      "id": 1,
+      "interval": "60s",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": true,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": 550,
+        "sort": "min",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "maxDataPoints": 700,
+      "maxPerRow": 2,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "repeat": null,
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:34",
+          "alias": "Ballon1 - Entrer",
+          "color": "#1f78c1"
+        },
+        {
+          "$$hashKey": "object:35",
+          "alias": "Ballon2 - Sortie",
+          "color": "#bf1b00",
+          "fillBelowTo": "Ballon 2 - Sortie"
+        },
+        {
+          "$$hashKey": "object:316",
+          "alias": "Ballon 2 - Sortie",
+          "fillGradient": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "0"
+              ],
+              "type": "time"
+            }
+          ],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  moyenne_temperature AS \"Ballon 1 - Entrer\"\nFROM Ballon1\nWHERE\n  $__timeFilter(date) AND\n  moyenne_temperature > 0\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "moyenne_temperature"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "moyenne_temperature"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "Ballon1",
+          "timeColumn": "date",
+          "timeColumnType": "datetime",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "float",
+              "name": "",
+              "params": [
+                "moyenne_temperature",
+                ">",
+                "0"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "alias": "",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  moyenne_temperature AS \"Ballon 2 - Sortie\"\nFROM Ballon2\nWHERE\n  $__timeFilter(date) AND\n  moyenne_temperature > 0\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)\n",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  sonde_interne AS \"Sonde Interne\"\nFROM Global_info\nWHERE\n  $__timeFilter(date) AND\n  sonde_interne > 0\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "Global_info",
+          "timeColumn": "date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": true,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  Sonde_haut AS \"Ballon 1 - Entrer haut\"\nFROM Ballon1\nWHERE\n  $__timeFilter(date) AND\n  Sonde_haut > 0\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)",
+          "refId": "D",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "Global_info",
+          "timeColumn": "date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": true,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  Sonde_bas AS \"Ballon 1 - Entrer bas\"\nFROM Ballon1\nWHERE\n  $__timeFilter(date) AND\n  Sonde_bas > 0\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)",
+          "refId": "E",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "Global_info",
+          "timeColumn": "date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": true,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  Sonde_haut AS \"Ballon 2 - Sortie haut\"\nFROM Ballon2\nWHERE\n  $__timeFilter(date) AND\n  Sonde_haut > 0\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)",
+          "refId": "F",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "Global_info",
+          "timeColumn": "date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": true,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  Sonde_bas AS \"Ballon 2 - Sortie bas\"\nFROM Ballon2\nWHERE\n  $__timeFilter(date) AND\n  Sonde_bas > 0\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)",
+          "refId": "G",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "Global_info",
+          "timeColumn": "date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "now/d",
+      "timeRegions": [
+        {
+          "$$hashKey": "object:96",
+          "colorMode": "background6",
+          "fill": true,
+          "fillColor": "rgba(234, 112, 112, 0.12)",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time"
+        }
+      ],
+      "timeShift": null,
+      "title": "Chauf eau Temperature",
+      "tooltip": {
+        "shared": true,
+        "sort": 1,
+        "value_type": "cumulative"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:196",
+          "decimals": 1,
+          "format": "celsius",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:197",
+          "format": "dateTimeFromNow",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "Ballon 1 - Entrer Watt": "#1f78c1",
+        "Ballon 2 - Sortie Watt": "rgb(255, 0, 4)"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "decimals": 1,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "fill": 5,
+      "fillGradient": 5,
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "height": "350",
+      "hiddenSeries": false,
+      "hideTimeOverride": true,
+      "id": 2,
+      "interval": "1m",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": 550,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 3,
+      "links": [],
+      "maxDataPoints": 7000,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:359",
+          "alias": "Total Watt",
+          "transform": "negative-Y"
+        },
+        {
+          "$$hashKey": "object:360",
+          "alias": "Ballon1 - Entrer Watt",
+          "color": "#1f78c1",
+          "fillGradient": 6
+        },
+        {
+          "$$hashKey": "object:361",
+          "alias": "Ballon2 - Sortie Watt",
+          "color": "#bf1b00",
+          "fill": 3,
+          "fillGradient": 6,
+          "nullPointMode": "null"
+        },
+        {
+          "$$hashKey": "object:350",
+          "alias": "Total",
+          "color": "#FA6400",
+          "dashes": true,
+          "hiddenSeries": true,
+          "lines": false
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  watt AS \"Ballon 2 - Sortie Watt\"\nFROM Ballon2\nWHERE\n  $__timeFilter(date) AND\n  watt >= 0\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "alias": "",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  watt AS \"Ballon 1 - Entrer Watt\"\nFROM Ballon1\nWHERE\n  $__timeFilter(date) AND\n  watt >= 0\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "now/d",
+      "timeRegions": [
+        {
+          "$$hashKey": "object:218",
+          "colorMode": "yellow",
+          "fill": false,
+          "fillColor": "rgba(234, 112, 112, 0.12)",
+          "from": "23:00",
+          "line": true,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "22:59"
+        }
+      ],
+      "timeShift": null,
+      "title": "Conso Ballon instantanne",
+      "tooltip": {
+        "shared": true,
+        "sort": 1,
+        "value_type": "cumulative"
+      },
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Total",
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Ballon 1 - Entrer Watt",
+                "Ballon 2 - Sortie Watt"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:328",
+          "format": "watt",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:329",
+          "format": "dateTimeAsIso",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "Ballon 1 - Entrer Watt": "#1f78c1",
+        "Ballon 1 - Entrer rendement": "semi-dark-blue",
+        "Ballon 2 - Sortie Watt": "rgb(255, 0, 4)",
+        "Ballon 2 - Sortie rendement": "dark-red"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "fill": 3,
+      "fillGradient": 4,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "height": "350",
+      "hiddenSeries": false,
+      "hideTimeOverride": false,
+      "id": 8,
+      "interval": "1m",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": 550,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 2,
+      "links": [],
+      "maxDataPoints": 1000,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": false
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 1,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:432",
+          "alias": "Ballon 1 - Entrer rendement",
+          "fill": 0,
+          "fillBelowTo": "Ballon 2 - Sortie rendement",
+          "fillGradient": 0,
+          "lines": true,
+          "linewidth": 3,
+          "nullPointMode": "null",
+          "yaxis": 1
+        },
+        {
+          "$$hashKey": "object:437",
+          "alias": "Ballon 2 - Sortie rendement",
+          "bars": true,
+          "fill": 0,
+          "fillGradient": 0,
+          "nullPointMode": "null as zero",
+          "points": false,
+          "yaxis": 1
+        },
+        {
+          "$$hashKey": "object:1094",
+          "alias": "Total",
+          "hiddenSeries": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  avg(rend_ballon2) AS \"Ballon 2 - Sortie rendement\"\nFROM Global_info\nWHERE\n  $__timeFilter(date) AND rend_ballon2\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "alias": "",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date,$__interval,0),\n  avg(rend_ballon1) AS \"Ballon 1 - Entrer rendement\"\nFROM Global_info\nWHERE\n  $__timeFilter(date) AND rend_ballon1\nGROUP BY 1\nORDER BY $__timeGroup(date,$__interval,0)",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "now/d",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Rendement",
+      "tooltip": {
+        "shared": true,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Ballon 2 - Sortie rendement",
+                "Ballon 1 - Entrer rendement"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:328",
+          "decimals": 2,
+          "format": "celsius",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:329",
+          "format": "celsius",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "Ballon 1 - Entrer KWattHeure": "dark-blue",
+        "Ballon 1 - Entrer Watt": "#1f78c1",
+        "Ballon 2 - Sortie KWattHeure": "rgb(255, 0, 28)",
+        "Ballon 2 - Sortie Watt": "rgb(255, 0, 4)",
+        "Ballon1 - Entre KWH": "dark-blue",
+        "Ballon2 - Entre KWH": "dark-red",
+        "Ballon2 - Sortie KWH": "rgb(255, 0, 29)",
+        "Total": "orange"
+      },
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "decimals": 2,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "fill": 3,
+      "fillGradient": 8,
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
+      "height": "350",
+      "hiddenSeries": false,
+      "hideTimeOverride": true,
+      "id": 10,
+      "interval": "30m",
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": 550,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 2,
+      "links": [],
+      "maxDataPoints": 300,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": false
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:186",
+          "alias": "Total",
+          "bars": false,
+          "dashLength": 2,
+          "dashes": true,
+          "fillGradient": 0,
+          "lines": false,
+          "linewidth": 1,
+          "pointradius": 2
+        },
+        {
+          "$$hashKey": "object:128",
+          "alias": "Ballon1 - Entre KWH",
+          "bars": false,
+          "fill": 5,
+          "fillGradient": 0,
+          "lines": true,
+          "steppedLine": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval, 0),\n  (avg(watt)*0.5/1000) AS \"Ballon1 - Entre KWH\"\nFROM Ballon1\nWHERE\n  $__timeFilter(date) AND\n  watt >= 0\nGROUP BY 1\nORDER BY $__timeGroup(date, $__interval, 0)",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "1d",
+                "0"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval, 0),\n (avg(watt)*0.5/1000) AS \"Ballon2 - Sortie KWH\"\nFROM Ballon2\nWHERE\n  $__timeFilter(date) AND\n  watt >= 0\nGROUP BY 1\nORDER BY $__timeGroup(date, $__interval, 0)",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "watt"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "watt"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "Ballon1",
+          "timeColumn": "date",
+          "timeColumnType": "datetime",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "watt",
+                ">",
+                "0"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "now/d",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Conso Ballon Kwh dans la journee",
+      "tooltip": {
+        "shared": true,
+        "sort": 1,
+        "value_type": "cumulative"
+      },
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {}
+        }
+      ],
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:328",
+          "format": "kwatth",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:329",
+          "format": "kwatth",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "Ballon 1 - Entrer KWattHeure": "dark-blue",
+        "Ballon 1 - Entrer Watt": "#1f78c1",
+        "Ballon 2 - Sortie KWattHeure": "rgb(255, 0, 28)",
+        "Ballon 2 - Sortie Watt": "rgb(255, 0, 4)",
+        "Ballon1 - Entre KWH": "dark-blue",
+        "Ballon2 - Entre KWH": "dark-red",
+        "Ballon2 - Sortie KWH": "rgb(255, 0, 29)",
+        "Total": "orange"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "fill": 3,
+      "fillGradient": 8,
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 45
+      },
+      "height": "350",
+      "hiddenSeries": false,
+      "hideTimeOverride": true,
+      "id": 9,
+      "interval": "24h",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": 550,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "maxDataPoints": 30,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": false
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:360",
+          "alias": "Ballon1 - Entrer Watt",
+          "color": "#1f78c1",
+          "fillGradient": 5
+        },
+        {
+          "$$hashKey": "object:361",
+          "alias": "Ballon2 - Sortie Watt",
+          "color": "#bf1b00",
+          "fillGradient": 9,
+          "lines": false
+        },
+        {
+          "$$hashKey": "object:186",
+          "alias": "Total",
+          "bars": false,
+          "dashLength": 2,
+          "dashes": true,
+          "fillGradient": 0,
+          "lines": false,
+          "linewidth": 1,
+          "pointradius": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval, 0),\n (avg(watt)*(count(watt)/24)/1000)/5.1 AS \"Ballon2 - Sortie KWH\"\nFROM Ballon2\nWHERE\n  $__timeFilter(date) AND\n  watt >= 0\nGROUP BY 1\nORDER BY $__timeGroup(date, $__interval, 0)",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "1d",
+                "0"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval, 0),\n  (avg(watt)*(count(watt)/25)/1000)/5.1 AS \"Ballon1 - Entre KWH\"\nFROM Ballon1\nWHERE\n  $__timeFilter(date) AND\n  watt >= 0\nGROUP BY 1\nORDER BY $__timeGroup(date, $__interval, 0)",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "watt"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "watt"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "Ballon1",
+          "timeColumn": "date",
+          "timeColumnType": "datetime",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "watt",
+                ">",
+                "0"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:342",
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(138, 184, 255, 0.08)",
+          "line": true,
+          "lineColor": "rgba(31, 96, 196, 0.6)",
+          "op": "lt",
+          "value": 5.25,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": "now/M",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Conso Ballon Kwh dans le mois",
+      "tooltip": {
+        "shared": true,
+        "sort": 1,
+        "value_type": "cumulative"
+      },
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Ballon1 - Entre KWH",
+                "Ballon2 - Sortie KWH"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:328",
+          "format": "kwatth",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:329",
+          "format": "kwatth",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now/d"
+  },
+  "timepicker": {
+    "hidden": false,
+    "nowDelay": "1m",
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "Chaufeau",
+  "uid": "vOGkvWmRk",
+  "version": 240
+}
